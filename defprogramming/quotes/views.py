@@ -1,9 +1,10 @@
 from django.template import Context, loader, RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
-from quotes.models import Author, Tag, Quote
-from quotes.forms import QuoteForm
 from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from quotes.models import Author, Tag, Quote
+from quotes.forms import QuoteForm
 
 def index(request):
   quotes = Quote.objects.all().order_by('-publish_date')
@@ -53,16 +54,11 @@ def submit_quote(request):
   title = "Submit a quote | def programming"
   description = "Use this form to submit a quote. Please send only quotes about programming, coding, software industry." 
   sent = False
+  form = QuoteForm(request.POST or None)
 
-  if request.method == 'POST':
-    form = QuoteForm(request.POST)
-
-    if form.is_valid():
-      form.save(request.POST);
+  if forms.is_valid():
+      form.save();
       sent = True 
-
-  else:
-    form = QuoteForm()
 
   return render_to_response('quotes/submit_quote.html', locals(), context_instance=RequestContext(request))
   
