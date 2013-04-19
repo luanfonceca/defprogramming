@@ -2,15 +2,13 @@
  
 {% block content %}
   {% include "quotes/header.html" %}
-  {% if quotes %}
-    {% for quote in quotes.object_list %}
-  		{% include "quotes/quote.html" %}
-    {% endfor %}
-    
-    {% include "quotes/pagination.html" %}
-    
-  {% else %}
-  	<p>No quotes are available.</p>
-  {% endif %}
+
+  {% for quote in quotes.object_list %}
+		  {% include "quotes/quote.html" %}
+  {% empty %}
+    <p>No quotes are available.</p>
+  {% endfor %}
   
+  {% include "quotes/pagination.html" %}
+
 {% endblock %}  
