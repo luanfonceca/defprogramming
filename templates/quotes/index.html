@@ -1,14 +1,14 @@
 {% extends "base.html" %}
- 
+
 {% block content %}
   {% include "quotes/header.html" %}
 
   {% for quote in quotes.object_list %}
-		  {% include "quotes/quote.html" %}
+	{% include "quotes/quote.html" %}
   {% empty %}
     <p>No quotes are available.</p>
   {% endfor %}
-  
+
   {% include "quotes/pagination.html" %}
 
-{% endblock %}  
+{% endblock %}
