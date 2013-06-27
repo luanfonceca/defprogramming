@@ -10,12 +10,15 @@ class QuoteForm(forms.Form):
   tags = forms.CharField(label='Tags, separated by commas')
   source = forms.CharField(label='Source (website, book etc.)')
 
-  def save(self, data):
-      message = "%s\n\nFrom: %s <%s>\nAuthors: %s\nTags: %s\nSource: %s\n" % (data.get('quote'), 
-                                                                              data.get('name'),
-                                                                              data.get('email'),
-                                                                              data.get('authors'), 
-                                                                              data.get('tags'), 
-                                                                              data.get('source'))
-      send_mail('[defprogramming] New quote', message, data.get('email'),
-                  [settings.SERVER_EMAIL], fail_silently=False)
+  def save(self):
+    message = ("%(quote)s\n\n"
+               "From: %(name)s <%(email)s>\n"
+               "Authors: %(authors)s\n"
+               "Tags: %(tags)s\n"
+               "Source: %(source)s\n") % self.cleaned_data
+
+    send_mail('[defprogramming] New quote',
+              message,
+              self.cleaned_data['email'],
+              [settings.SERVER_EMAIL],
+              fail_silently=False)
