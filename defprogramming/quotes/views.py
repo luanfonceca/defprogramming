@@ -2,6 +2,7 @@ from django.template import Context, loader, RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib import messages
 
 from quotes.models import Author, Tag, Quote
 from quotes.forms import QuoteForm
@@ -56,7 +57,7 @@ def submit_quote(request):
   form = QuoteForm(request.POST or None)
   if form.is_valid():
       form.save()
-      sent = True
+      messages.success(request, "Your quote was successfully submitted, thank you! :-)")
   return render_to_response('quotes/submit_quote.html', locals(), context_instance=RequestContext(request))
 
 def __validates_pagination(request, paginator):

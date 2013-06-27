@@ -5,11 +5,11 @@
     <h1>Submit Quote</h1>
   </header>
   <div class="box">
-    {% if sent %}
-      <p class="success">
+    {% for message in messages %}
+      <p class="{{ message.tags }}">
         Your quote was successfully submitted, thank you! :-)
       </p>
-    {% else %}
+    {% empty %}
       <p class="info">
         Fill in the form below to suggest/submit a quote.
       </p>
@@ -21,7 +21,7 @@
           <input type="submit" value="Submit" class="btn primary" />
         </div>
       </form>
-    {% endif %}
+    {% endfor %}
   </div>
 
   {% include "home_link.html" %}
