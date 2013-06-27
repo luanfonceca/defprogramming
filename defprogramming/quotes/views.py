@@ -10,9 +10,9 @@ def index(request):
   quotes = Quote.objects.all().order_by('-publish_date')
   quotes = __validates_pagination(request, Paginator(quotes, 10))
   title = "def programming: quotes about coding"
-  description = "Quotes about programming, coding, computer science, debugging, software industry, startups and motivation." 
+  description = "Quotes about programming, coding, computer science, debugging, software industry, startups and motivation."
   return render_to_response('quotes/index.html', locals(), context_instance=RequestContext(request))
-  
+
 def detail(request, slug):
   quote = get_object_or_404(Quote, slug=slug)
   return render_to_response('quotes/detail.html', locals(), context_instance=RequestContext(request))
@@ -30,9 +30,9 @@ def authors(request):
 def author_detail(request, slug):
   author = get_object_or_404(Author, slug=slug)
   quotes = author.quote_set.all().order_by('-publish_date')
-  quotes = __validates_pagination(request, Paginator(quotes, 10))  
-  title = "Programming quotes by " + author.name + " | def programming"
-  description = "Listing all programming quotes by " + author.name + ". Quotes about programming, coding, software industry." 
+  quotes = __validates_pagination(request, Paginator(quotes, 10))
+  title = "Programming quotes by %s | def programming" % author.name
+  description = "Listing all programming quotes by %s. Quotes about programming, coding, software industry."  % author.name
   return render_to_response('quotes/author_detail.html', locals(), context_instance=RequestContext(request))
 
 def tags(request):
@@ -44,26 +44,23 @@ def tags(request):
 def tag_detail(request, slug):
   tag = get_object_or_404(Tag, slug=slug)
   quotes = tag.quote_set.all().order_by('-publish_date')
-  quotes = __validates_pagination(request, Paginator(quotes, 10))  
-  title = "Programming quotes tagged under " + tag.name + " | def programming"
-  description = "Listing all programming quotes tagged under " + tag.name + ". Quotes about programming, coding, software industry." 
-
+  quotes = __validates_pagination(request, Paginator(quotes, 10))
+  title = "Programming quotes tagged under %s | def programming" % tag.name
+  description = "Listing all programming quotes tagged under %s. Quotes about programming, coding, software industry." % tag.name
   return render_to_response('quotes/tag_detail.html', locals(), context_instance=RequestContext(request))
 
 def submit_quote(request):
   title = "Submit a quote | def programming"
-  description = "Use this form to submit a quote. Please send only quotes about programming, coding, software industry." 
+  description = "Use this form to submit a quote. Please send only quotes about programming, coding, software industry."
   sent = False
   form = QuoteForm(request.POST or None)
-
-  if forms.is_valid():
-      form.save();
-      sent = True 
-
+  if form.is_valid():
+      form.save()
+      sent = True
   return render_to_response('quotes/submit_quote.html', locals(), context_instance=RequestContext(request))
-  
+
 def __validates_pagination(request, paginator):
-  page = request.GET.get('page') or 1
+  page = request.GET.get('page', 1)
   try:
     return paginator.page(page)
   except PageNotAnInteger:
