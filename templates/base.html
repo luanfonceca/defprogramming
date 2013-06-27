@@ -4,23 +4,23 @@
   <head>
     <meta charset="utf-8" />
     {% if quote %}
-    <title>Quote by {% for author in quote.authors.all %}{{ author.name }}{% if not forloop.last %} and {% endif %}{% endfor %}</title>
-    <meta description="{{ quote.body }}" />
+      <title>Quote by {% for author in quote.authors.all %}{{ author.name }}{% if not forloop.last %} and {% endif %}{% endfor %}</title>
+      <meta description="{{ quote.body }}" />
     {% else %}
-    <title>{{ title }}</title>
-    <meta description="{{ description }}" />
+      <title>{{ title }}</title>
+      <meta description="{{ description }}" />
     {% endif %}
     <link rel="alternate" type="application/atom+xml" title="def programming: recent quotes" href="/feed/" />
     <link type="text/css" href="{{ MEDIA_URL }}style.css" rel="stylesheet" />
     <link href="http://fonts.googleapis.com/css?family=Brawler&v1" rel="stylesheet" type="text/css" />
     {% if quote %}
-    <meta property="og:title" content="Quote by {% for author in quote.authors.all %}{{ author.name }}{% if not forloop.last %} and {% endif %}{% endfor %}" />
-    <meta property="og:description" content="{{ quote.body }}"/>
-    <meta property="og:type" content="blog"/>
-    <meta property="og:url" content="http://www.defprogramming.com{{ quote.get_absolute_url }}"/>
-    <meta property="og:image" content="http://defprogramming.com{{ MEDIA_URL }}quote.gif" />
-    <meta property="og:site_name" content="def programming: quotes about coding"/>
-    <meta property="fb:admins" content="100002463252759" />
+      <meta property="og:title" content="Quote by {% for author in quote.authors.all %}{{ author.name }}{% if not forloop.last %} and {% endif %}{% endfor %}" />
+      <meta property="og:description" content="{{ quote.body }}"/>
+      <meta property="og:type" content="blog"/>
+      <meta property="og:url" content="http://www.defprogramming.com{{ quote.get_absolute_url }}"/>
+      <meta property="og:image" content="http://defprogramming.com{{ MEDIA_URL }}quote.gif" />
+      <meta property="og:site_name" content="def programming: quotes about coding"/>
+      <meta property="fb:admins" content="100002463252759" />
     {% endif %}
     <link rel="shortcut icon" href="{{ MEDIA_URL }}favicon.png" />
   </head>
